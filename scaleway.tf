@@ -7,7 +7,7 @@
     required_version = ">= 0.13"
   }
   provider "scaleway" {
-    access_key      = "dc76b5b5-1d86-4201-93a3-589d06a61d82"
+    access_key      = "SCWFS6T9D3HM4AKVBQMD"
     secret_key      = "13047955-257b-443a-8f89-1c638111dff6"
     project_id	    = "<SCW_DEFAULT_PROJECT_ID>"
     zone            = "fr-par-1"
