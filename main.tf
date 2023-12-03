@@ -1,15 +1,16 @@
-  terraform {
-    required_providers {
-      scaleway = {
-        source = "scaleway/scaleway"
-      }
-    }
-    required_version = ">= 0.13"
+terraform{
+
+required_providers {
+  scaleway = {
+    source = "scaleway/scaleway"
   }
-  provider "scaleway" {
+}
+required_version = ">= 0.13"
+}
+provider "scaleway" {
     access_key      = "SCWFS6T9D3HM4AKVBQMD"
     secret_key      = "13047955-257b-443a-8f89-1c638111dff6"
-    project_id	    = "<SCW_DEFAULT_PROJECT_ID>"
+    project_id	    = "f6f799d5-fee4-4e2c-8b3b-0adc3a6eac6d"
     zone            = "fr-par-1"
     region          = "fr-par"
   }
@@ -17,6 +18,12 @@
   resource "scaleway_instance_volume" "data" {
     size_in_gb = 30
     type = "l_ssd"
+  }
+  resource "scaleway_object_bucket" "jojotaro" {
+    name = "jojotaro-s3"
+    tags = {
+      project = "esgi-iac"
+    }
   }
   resource "scaleway_instance_server" "my-instance" {
     type  = "DEV1-L"
@@ -33,3 +40,6 @@
       size_in_gb = 50
     }
   }
+
+
+
