@@ -3,6 +3,8 @@ name: API
 on:
   push:
     branches: [ "main", "test", "dev" ]
+    paths:
+      -api/**
 
 env:
   CARGO_TERM_COLOR: always
