@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main", "test", "dev" ]
     paths:
-      - 'api/Cargo.toml'
+      - 'api/'
 
 env:
   CARGO_TERM_COLOR: always
