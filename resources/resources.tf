@@ -8,6 +8,13 @@ terraform {
 
 }
 resource "scaleway_instance_ip" "public_ip" {}
+
+resource "scaleway_vpc_public_gateway" "main" {
+  name = "app_gateway"
+  type = "VPC-GW-S"
+  tags = ["demo", "terraform"]
+}
+
 resource "scaleway_instance_volume" "data" {
   size_in_gb = 30
   type = "l_ssd"
@@ -33,6 +40,14 @@ resource "scaleway_instance_server" "server" {
     size_in_gb = 50
   }
 }
+resource "scaleway_vpc_private_network" "pn" {
+}
+
+resource "scaleway_vpc_public_gateway" "main" {
+  name = "public_gateway"
+  type = "VPC-GW-S"
+  tags = ["demo", "terraform"]
+}
 
 resource "scaleway_rdb_instance" "main" {
   name           = "rust_bdd"
@@ -42,16 +57,14 @@ resource "scaleway_rdb_instance" "main" {
   disable_backup = true
   user_name      = "admin"
   password       = "S3cret_word"
-
 }
 
-resource "scaleway_vpc_private_network" "hedy" {}
 
 resource "scaleway_k8s_cluster" "cluclu" {
   name    = "clu"
   version = "1.24.3"
   cni     = "cilium"
-  private_network_id = scaleway_vpc_private_network.hedy.id
+  private_network_id = scaleway_vpc_private_network.pn.id
   delete_additional_resources = false
 }
 

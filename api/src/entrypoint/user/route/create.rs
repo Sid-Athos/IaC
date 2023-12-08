@@ -11,7 +11,7 @@ use crate::service::user_service::UserService;
 
 #[utoipa::path(
     post,
-    path = "/user/",
+    path = "/user/create",
     request_body = CreateUserRequest,
     responses(
         (status = 200, description = "User created", body = UserResponse,),
