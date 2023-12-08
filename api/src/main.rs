@@ -46,7 +46,7 @@ use crate::entrypoint::user::route::request::change_password_request::ChangePass
 use crate::entrypoint::user::route::request::login_request::LoginRequest;
 use crate::middlewares::swagger_security;
 
-async fn run(pool : Pool<PostgresConnectionManager<NoTls>>) -> Result<(), DatabaseError> {
+/*async fn run(pool : Pool<PostgresConnectionManager<NoTls>>) -> Result<(), DatabaseError> {
     // Charger le contenu du fichier SQL
     let mut file = File::open("../data.sql").map_err(database_error_cannot_get_connection_to_database)?;
     let mut sql_content = String::new();
@@ -59,7 +59,7 @@ async fn run(pool : Pool<PostgresConnectionManager<NoTls>>) -> Result<(), Databa
     conn.batch_execute(&sql_content).await.map_err(database_error_cannot_get_connection_to_database)?;
 
     Ok(())
-}
+}*/
 
 #[tokio::main]
 async fn main() {
@@ -68,7 +68,7 @@ async fn main() {
     init_tracer();
     let pool = init_db().await.unwrap();
 
-    run(pool.clone());
+    //run(pool.clone());
     let _cors = init_cors_layer();
 
     println!(env!("CARGO_MANIFEST_DIR"));
