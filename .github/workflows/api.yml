@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main", "test", "dev" ]
     paths:
-      - 'api'
+      - './api/'
 
 env:
   CARGO_TERM_COLOR: always
