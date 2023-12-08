@@ -1,60 +1,60 @@
 create schema coding_games;
 
-SET search_path TO database_n.coding_games;
+SET search_path TO coding_games;
 
 create sequence invite_id
     maxvalue 999999999999
     cache 10;
 
-alter sequence invite_id owner to admin_sid;
+alter sequence invite_id owner to admin;
 
 create sequence invite_id_auto
     maxvalue 99999
     cache 10;
 
-alter sequence invite_id_auto owner to admin_sid;
+alter sequence invite_id_auto owner to admin;
 
 create sequence invite_id_seq
     maxvalue 99999
     cache 10;
 
-alter sequence invite_id_seq owner to admin_sid;
+alter sequence invite_id_seq owner to admin;
 
 create sequence invite_id_seq1
     maxvalue 99999
     cache 10;
 
-alter sequence invite_id_seq1 owner to admin_sid;
+alter sequence invite_id_seq1 owner to admin;
 
 create sequence invite_id_seq2
     maxvalue 99999
     cache 10;
 
-alter sequence invite_id_seq2 owner to admin_sid;
+alter sequence invite_id_seq2 owner to admin;
 
 create sequence ws_session_id_seq
     maxvalue 10000000
     cache 1000;
 
-alter sequence ws_session_id_seq owner to admin_sid;
+alter sequence ws_session_id_seq owner to admin;
 
 create sequence game_history_id_seq
     maxvalue 1000000
     cache 100;
 
-alter sequence game_history_id_seq owner to admin_sid;
+alter sequence game_history_id_seq owner to admin;
 
 create sequence game_members_history_id_seq
     maxvalue 10000000
     cache 100;
 
-alter sequence game_members_history_id_seq owner to admin_sid;
+alter sequence game_members_history_id_seq owner to admin;
 
 create sequence game_move_history_id_seq
     maxvalue 1000000
     cache 100;
 
-alter sequence game_move_history_id_seq owner to admin_sid;
+alter sequence game_move_history_id_seq owner to admin;
 
 create table if not exists "user"
 (
@@ -74,7 +74,7 @@ create table if not exists "user"
 );
 
 alter table "user"
-    owner to admin_sid;
+    owner to admin;
 
 create table if not exists session
 (
@@ -90,7 +90,7 @@ create table if not exists session
 );
 
 alter table session
-    owner to admin_sid;
+    owner to admin;
 
 create table if not exists game
 (
@@ -113,7 +113,7 @@ create table if not exists game
 );
 
 alter table game
-    owner to admin_sid;
+    owner to admin;
 
 create table if not exists invite
 (
@@ -126,7 +126,7 @@ create table if not exists invite
 );
 
 alter table invite
-    owner to admin_sid;
+    owner to admin;
 
 alter sequence invite_id_seq1 owned by invite.id;
 
@@ -153,7 +153,7 @@ create table if not exists friend_list
 );
 
 alter table friend_list
-    owner to admin_sid;
+    owner to admin;
 
 create unique index if not exists friend_list_id_uindex
     on friend_list (id);
@@ -174,7 +174,7 @@ create table if not exists ranking
 );
 
 alter table ranking
-    owner to admin_sid;
+    owner to admin;
 
 create table if not exists ws_session
 (
@@ -186,7 +186,7 @@ create table if not exists ws_session
 );
 
 alter table ws_session
-    owner to admin_sid;
+    owner to admin;
 
 alter sequence ws_session_id_seq owned by ws_session.id;
 
@@ -203,7 +203,7 @@ create table if not exists game_history
 );
 
 alter table game_history
-    owner to admin_sid;
+    owner to admin;
 
 alter sequence game_history_id_seq owned by game_history.id;
 
@@ -225,7 +225,7 @@ create table if not exists lobby
 );
 
 alter table lobby
-    owner to admin_sid;
+    owner to admin;
 
 create table if not exists lobby_member
 (
@@ -245,7 +245,7 @@ create table if not exists lobby_member
 );
 
 alter table lobby_member
-    owner to admin_sid;
+    owner to admin;
 
 create table if not exists game_members_history
 (
@@ -262,7 +262,7 @@ create table if not exists game_members_history
 );
 
 alter table game_members_history
-    owner to admin_sid;
+    owner to admin;
 
 alter sequence game_members_history_id_seq owned by game_members_history.id;
 
@@ -281,7 +281,7 @@ create table if not exists game_move_history
 );
 
 alter table game_move_history
-    owner to admin_sid;
+    owner to admin;
 
 alter sequence game_move_history_id_seq owned by game_move_history.id;
 

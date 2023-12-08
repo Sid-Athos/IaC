@@ -23,12 +23,6 @@ module "ingress" {
 }
 
 
-resource "kubernetes_namespace" "namespace" {
-  metadata {
-    name = "nginx"
-  }
-}
-
 
 
 provider "scaleway" {

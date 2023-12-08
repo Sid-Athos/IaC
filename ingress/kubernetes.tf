@@ -1,4 +1,4 @@
-terraform {
+/**terraform {
   required_providers {
     scaleway = {
       source = "scaleway/scaleway"
@@ -27,10 +27,12 @@ provider "kubernetes" {
     null_resource.kubeconfig.triggers.cluster_ca_certificate
   )
 }
+
 resource "scaleway_k8s_cluster" "cluclu" {
   name    = "clu"
   version = "1.24.3"
   cni     = "cilium"
+  private_network_id = scaleway_vpc_private_network.pn.id
   delete_additional_resources = false
 }
 
@@ -112,7 +114,7 @@ resource "kubernetes_pod" "pod" {
       }
     }
   }
-}
+}*/
 
 
 
