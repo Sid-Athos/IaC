@@ -2,4 +2,4 @@
 .terraform
 terraform.tfstate
 .terraform.lock.hcl
-./.github
+./.github/
