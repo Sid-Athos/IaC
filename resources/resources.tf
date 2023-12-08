@@ -12,8 +12,8 @@ resource "scaleway_instance_volume" "data" {
   size_in_gb = 30
   type = "l_ssd"
 }
-resource "scaleway_object_bucket" "jojotaro-s4" {
-  name = "jojotaro-s4"
+resource "scaleway_object_bucket" "jojotaro-s8" {
+  name = "jojotaro-s8"
   tags = {
     project = "esgi-iac"
   }
@@ -32,6 +32,17 @@ resource "scaleway_instance_server" "server" {
     # The local storage of a DEV1-L Instance is 80 GB, subtract 30 GB from the additional l_ssd volume, then the root volume needs to be 50 GB.
     size_in_gb = 50
   }
+}
+
+resource "scaleway_rdb_instance" "main" {
+  name           = "rust_bdd"
+  node_type      = "DB-DEV-S"
+  engine         = "PostgreSQL-15"
+  is_ha_cluster  = true
+  disable_backup = true
+  user_name      = "admin"
+  password       = "S3cret_word"
+
 }
 
 resource "scaleway_vpc_private_network" "hedy" {}
