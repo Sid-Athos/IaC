@@ -47,22 +47,3 @@ jobs:
           platforms: linux/arm64
           push: true
           tags: ${{secrets.DOCKERHUB_USERNAME}}/${{secrets.DOCKERHUB_PROJECT_NAME}}:api-latest
-
-  redeploy:
-    needs: build
-    name: Redeploy
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v3
-      - name: Connect and exec
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets[format('SERVER_HOSTNAME_{0}', env.BRANCH_NAME)] }}
-          username: ${{ secrets[format('SERVER_USERNAME_{0}', env.BRANCH_NAME)] }}
-          key: ${{ secrets[format('SERVER_KEY_{0}', env.BRANCH_NAME)] }}
-          script: |
-            cd iac/
-            git pull
-            docker compose pull
-            docker compose up -d
-            docker image prune -f
