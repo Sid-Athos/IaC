@@ -69,6 +69,8 @@ resource "scaleway_vpc_public_gateway_pat_rule" "main" {
   protocol = "both"
   depends_on = [scaleway_vpc_gateway_network.gn, scaleway_vpc_private_network.pn]
 }
+
+
 resource "null_resource" "kubeconfig" {
   depends_on = [scaleway_k8s_pool.poopoo] # at least one pool here
   triggers = {
@@ -131,10 +133,10 @@ resource "kubernetes_deployment" "deployment" {
 
       spec {
         container {
-          image = "sabennaceur135/iacesgi:latest"
+          image = "sabennaceur135/iacesgi:api-latest"
           name  = "api"
           port {
-            container_port = 80
+            container_port = 7980
           }
 
           resources {
@@ -147,16 +149,6 @@ resource "kubernetes_deployment" "deployment" {
               memory = "50Mi"
             }
           }
-
-          liveness_probe {
-            http_get {
-              path = "/"
-              port = 80
-            }
-
-            initial_delay_seconds = 3
-            period_seconds        = 3
-          }
         }
       }
     }
@@ -168,36 +160,17 @@ resource "kubernetes_service" "service" {
   }
   spec {
     selector = {
-      app = kubernetes_pod.pod.metadata.0.labels.app
+      test = "RustApp"
     }
     session_affinity = "ClientIP"
     port {
-      port        = 8080
-      target_port = 80
+      port        = 80
+      target_port = 7980
     }
-    type = "NodePort"
+    type = "LoadBalancer"
   }
 }
 
-resource "kubernetes_pod" "pod" {
-  metadata {
-    name = "terraform-pod"
-    labels = {
-      app = "rust"
-    }
-  }
-
-  spec {
-    container {
-      image = "nginx:1.7.9"
-      name  = "nginx"
-
-      port {
-        container_port = 8080
-      }
-    }
-  }
-}
 
 
 
