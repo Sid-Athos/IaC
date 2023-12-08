@@ -1,11 +1,14 @@
-terraform{
-
+terraform {
   required_providers {
     scaleway = {
       source = "scaleway/scaleway"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+    }
   }
   required_version = ">= 0.13"
+
 }
 
 module "resources" {
@@ -15,7 +18,16 @@ module "storage" {
   source = "./storage"
 }
 
+module "ingress" {
+  source = "./ingress"
+}
 
+
+resource "kubernetes_namespace" "namespace" {
+  metadata {
+    name = "nginx"
+  }
+}
 
 
 
@@ -40,6 +52,9 @@ terraform {
     skip_requesting_account_id  = true
   }
 }
+
+
+
 
 
 
