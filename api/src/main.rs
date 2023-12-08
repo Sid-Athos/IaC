@@ -5,6 +5,8 @@ mod entrypoint;
 mod middlewares;
 
 use std::env;
+use std::fs::File;
+use std::io::Read;
 use axum::{ Router};
 use std::net::SocketAddr;
 
@@ -18,6 +20,7 @@ use utoipa::{ OpenApi};
 
 
 use utoipa_swagger_ui::SwaggerUi;
+use crate::database::database_error::database_error_cannot_get_connection_to_database;
 
 use crate::middlewares::{tracing::init_tracer, cors_layer::init_cors_layer};
 use crate::database::init::init_db;
@@ -45,7 +48,15 @@ async fn main() {
     dotenv().ok();
     init_tracer();
     let pool = init_db().await.unwrap();
+    let newPool = pool.clone();
 
+    let conn = newPool.get().await.map_err(database_error_cannot_get_connection_to_database)?;
+
+    let mut file = File::open("../data.sql")?;
+    let mut sql_content = String::new();
+    file.read_to_string(&mut sql_content)?;
+
+    conn.batch_execute(&sql_content).await?;
     let _cors = init_cors_layer();
 
     println!(env!("CARGO_MANIFEST_DIR"));

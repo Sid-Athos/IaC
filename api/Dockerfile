@@ -19,5 +19,6 @@ COPY --from=build /api/target/release/api .
 COPY .env .env
 RUN mkdir logs
 EXPOSE 7980
+COPY data.sql data.sql
 
 CMD ["./api"]
