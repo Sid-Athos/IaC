@@ -1,0 +1,4 @@
+target
+.idea
+certificates
+certificates/*.pem

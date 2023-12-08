@@ -1,0 +1,1 @@
+pub mod create_friend_list_request;
